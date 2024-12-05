@@ -1,0 +1,107 @@
+<style>
+        * {
+            box-sizing: border-box; /* Include padding and borders in the element's total width and height */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #9458c5; /* Deep purple background */
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #9458c5; /* Same as body background */
+            display: flex;
+            flex-direction: column; /* Stack loading text and bar vertically */
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .loading-bar {
+            width: 50%; /* Width of the loading bar */
+            height: 10px; /* Height of the loading bar */
+            background-color: #fff; /* White background for the loading bar */
+            border-radius: 5px; /* Rounded corners */
+            overflow: hidden; /* Hide overflow for inner div */
+            margin-top: 20px; /* Space above the loading bar */
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0%; /* Start with no progress */
+            background-color: #007bff; /* Blue color for the loading progress */
+            animation: loadingAnimation 10s linear forwards; /* Animate over 10 seconds */
+        }
+
+        @keyframes loadingAnimation {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .container {
+            position: relative;
+            width: 90vw;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .floating-rectangle {
+                background-color: white;
+                width: 600px; /* Increased width for each card */
+                height: 400px; /* Fixed height for each card to accommodate charts */
+                margin-bottom: 20px; /* Space below each card to separate from key instructions */
+                border-radius: 15px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                display: flex;
+                flex-direction: column; /* Stack title and plot vertically */
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                transform-origin: center;
+                transition: all 0.5s ease;
+            }
+
+            canvas {
+                width: 100% !important; /* Make canvas responsive */
+                height: auto !important; /* Maintain aspect ratio */
+            }
+
+            .hidden {
+                opacity :0 ;/* Hide the rectangle*/
+                transform :scale(0);/* Scale down to zero*/
+            }
+            .fullscreen {
+              position: fixed;
+    top: 5%; /* Add some margin from the top */
+    left: 5%; /* Add some margin from the left */
+    width: 90vw; /* Reduce width to 90% of the viewport */
+    height: 90vh; /* Reduce height to 90% of the viewport */
+    z-index: 1000;
+    background-color: white;
+    transition: all 0.5s ease;
+    border: 15px solid #ffffff; /* Add a border with the background color
+            }
+
+
+
+
+
+
+        }
+    </style>

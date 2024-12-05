@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Civil War Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="loading-screen" id="loading">
+        Loading...
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <div class="container" id="options" style="display:none;">
+        <!-- Enlisted Soldiers in the Union Card -->
+        <div class="floating-rectangle hidden" id="enlisted-soldiers-card">
+            <h3>Enlisted Soldiers in the Union</h3>
+            <canvas id="enlisted-soldiers-chart"></canvas>
+        </div>
+
+        <!-- Labor Force Participation Card -->
+        <div class="floating-rectangle hidden" id="labor-participation-card">
+            <h3>Labor Force Participation</h3>
+            <canvas id="labor-participation-chart"></canvas>
+        </div>
+
+        <!-- Northern GDP Card -->
+        <div class="floating-rectangle hidden" id="gdp-card">
+            <h3>Northern GDP</h3>
+            <canvas id="gdp-chart"></canvas>
+        </div>
+
+        <!-- Fiscal Spending Card -->
+        <div class="floating-rectangle hidden" id="fiscal-spending-card">
+            <h3>Fiscal Spending</h3>
+            <canvas id="fiscal-spending-chart"></canvas>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="js/scripts.js"></script>
+
+    <!-- JavaScript for Floating Rectangles and Loading Screen -->
+    <script>
+        const rectangles = document.querySelectorAll('.floating-rectangle');
+let selectedIndex = 0;
+let isFullscreen = false;
+let isSpacebarPressed = false; // Add a flag to track spacebar state
+
+function updateSelection() {
+    rectangles.forEach((rect, index) => {
+        if (index === selectedIndex && !isFullscreen) {
+            rect.style.transform = 'scale(1)';
+            rect.style.opacity = '1';
+            rect.style.zIndex = '1';
+        } else if (!isFullscreen) {
+            rect.style.transform = 'scale(0)';
+            rect.style.opacity = '0';
+            rect.style.zIndex = '0';
+        }
+    });
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' && !isFullscreen) {
+        selectedIndex = (selectedIndex + 1) % rectangles.length;
+        updateSelection();
+        e.preventDefault();
+    } else if (e.key === 'ArrowLeft' && !isFullscreen) {
+        selectedIndex = (selectedIndex - 1 + rectangles.length) % rectangles.length;
+        updateSelection();
+        e.preventDefault();
+    } else if (e.key === ' ' && !isSpacebarPressed) { // Check if spacebar is not already pressed
+        isSpacebarPressed = true; // Set the flag to true
+        const selectedRect = rectangles[selectedIndex];
+        isFullscreen = !isFullscreen;
+        selectedRect.classList.toggle('fullscreen');
+
+        if (isFullscreen) {
+            selectedRect.style.transform = 'scale(1)';
+            selectedRect.style.transition = 'all 0.5s ease';
+        } else {
+            selectedRect.style.transform = 'scale(1)';
+            selectedRect.style.transition = 'all 0.5s ease';
+            setTimeout(() => {
+                updateSelection();
+            }, 500);
+        }
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('keyup', function (e) {
+    if (e.key === ' ') {
+        isSpacebarPressed = false; // Reset the flag when the spacebar is released
+    }
+});
+
+window.onload = function () {
+    setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('options').style.display = 'flex';
+        updateSelection();
+    }, 10000);
+};
+
+    </script>
+    
+</body>
+</html>
+</body>
+</html>
